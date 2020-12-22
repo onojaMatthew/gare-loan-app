@@ -5643,3 +5643,5 @@
 {"level":"info","message":"Connection to database established","timestamp":"2020-12-22T14:54:16.317Z"}
 {"level":"info","message":"🚀 Server ready at http://localhost:4200","timestamp":"2020-12-22T14:55:04.066Z"}
 {"level":"info","message":"Connection to database established","timestamp":"2020-12-22T14:55:04.090Z"}
+{"level":"info","message":"🚀 Server ready at http://localhost:4200","timestamp":"2020-12-22T14:58:05.393Z"}
+{"level":"info","message":"Connection to database established","timestamp":"2020-12-22T14:58:05.409Z"}

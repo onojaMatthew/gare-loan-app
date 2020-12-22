@@ -55,7 +55,7 @@ exports.getUser = async (req, res) => {
 
   let user;
   try {
-    user = await User.findById({ _id: userId });
+    user = await User.findById({ _id: userId }).populate("employmentId").populate("bankId").populate("attestationId");
     if (!user) return res.status(404).json({ status: "fail", error: "Not found" });
     return res.json(user);
   } catch (error) {
