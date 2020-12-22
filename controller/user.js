@@ -31,7 +31,7 @@ exports.createUser = (req, res) => {
     // console.log(doc);
     if (err || !doc) return res.status(400).json({ error: `Failed to process. ${err.message}`});
     
-    return res.json({ status: "success", message: "Success", customerId: doc._id });
+    return res.json({ status: "success", message: "Success", userId: doc._id });
   });
 }
 
@@ -56,7 +56,20 @@ exports.getUser = async (req, res) => {
   let user;
   try {
     user = await User.findById({ _id: userId });
+    if (!user) return res.status(404).json({ status: "fail", error: "Not found" });
+    return res.json(user);
   } catch (error) {
     return res.status(400).json({ error: err.message });
   }
+}
+
+exports.deleteUser = async (req, res) => {
+  const { userId } = req.body;
+
+  if (!mongoose.isValidObjectId(userId)) return res.status(400).json({ error: "Invalid user ID" });
+
+  User.findByIdAndDelete({ userId }, (err, doc) => {
+    if (err || !doc) return res.status(400).json({ error: `User not found` });
+    return res.json({ status: "success", message: "User account deleted" });
+  });
 }

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { bankEnum } = require("../helper/enum")
 
-const { Schema } = mongoose;
+const { Schema, ObjectId } = mongoose;
 
 const nameEnum = [
   "Access Bank", "Citibank", 
@@ -37,7 +37,8 @@ const bankSchema = new Schema({
   accountNumber: { type: Number, required: [ true, "Account number is required"]},
   accountName: { type: String, required: [ true, "What is your account name"]},
   accountType: { type: String, required: [ true, "What is your account type"]},
-  code: { type: Number, required: [ true, "Your bank code is required"], enum: codeEnum }
+  code: { type: Number, required: [ true, "Your bank code is required"], enum: codeEnum },
+  userId: { type: ObjectId, ref: "User", required: true }
 }, { timestamps: true });
 
 const Bank = mongoose.model("Bank", bankSchema);

@@ -32,14 +32,14 @@ exports.validateUser = [
   check("state").isLength({ min: 3 }).withMessage("State name must be at least 2 characters long"),
   check("meansOfIdentification").isIn(["international passport", "driver's license", "voter's card", "national identity", "others"]),
   check("identityNumber").isNumeric().isLength({ min: 9, max: 11 }).withMessage("Identity number must not be less than 9 or greater than 11 characters long"),
-  function(req, res) {
+  function(req, res, next) {
 
     var errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        res.status(400).json(errors.array());
+        return res.status(400).json(errors.array());
     } else {
-        res.sendStatus(200);
+        next();
     }
   }
 ];
