@@ -16,8 +16,7 @@ const employmentSchema = new Schema({
   previousEmployer: { type: String },
   HRName: { type: String },
   HREmail: { type: String },
-  HRPhone: { type: String },
-  userId: { type: ObjectId, ref: "User", required: true }
+  HRPhone: { type: String }
 });
 
 const Employment = mongoose.model("Employment", employmentSchema);

@@ -20,7 +20,7 @@ exports.createEmploymentData = async (req, res) => {
     employment.HRPhone = req.body.HRPhone;
     employment.dateEmployed = req.body.dateEmployed;
 
-    employment = await Employment.save();
+    employment = await employment.save();
 
     if (!employment) return res.status(400).json({ error: "Something went wrong. Please try again" });
     let user = await User.findByIdAndUpdate({ _id: req.body.userId }, { $set: { employmentId: employment._id }}, { new: true });
