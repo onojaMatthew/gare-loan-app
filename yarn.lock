@@ -2223,6 +2223,11 @@ negotiator@0.6.2:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
+nigerian-phone-number-validator@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/nigerian-phone-number-validator/-/nigerian-phone-number-validator-1.0.0.tgz#05e0e82f3d3c4f24f0df880ff9e63022449edb7a"
+  integrity sha512-YKetZfGGtbAUV3M+zW9jfwS7kuwTm3PTH4iWpoUk/K/hOukm8wwlVdhqSnS68l1jclP99umUo0TL3KTRCAbm7w==
+
 node-addon-api@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.1.0.tgz#98b21931557466c6729e51cb77cd39c965f42239"
@@ -3223,6 +3228,11 @@ uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+
+validate-phone-number-node-js@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/validate-phone-number-node-js/-/validate-phone-number-node-js-0.0.1.tgz#88ce5f7ee2ad53a1f469052a73b2e2ded77ec634"
+  integrity sha512-A9yVgLOYLyLhGKPFOxGsar9jQK/Ti4TKvEUrklQ26KWRxcV6xw9EzBBD9dCX6S+SeczxCuQgO1u3I/ne2tABYw==
 
 validator@^13.5.1:
   version "13.5.2"

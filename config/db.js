@@ -16,6 +16,7 @@ module.exports = () => {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
     poolSize: 5,
     socketTimeoutMS: 45000,
   } )
@@ -25,7 +26,4 @@ module.exports = () => {
     .catch( err => {
       winston.error( `Connection failed. ${ err.message }` );
     } );
-  
-  mongoose.set( "useFindAndModify", false );
-  mongoose.set( "useCreateIndex", true );
 }

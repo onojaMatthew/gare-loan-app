@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "start-dev": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "author": "Onoja Igoche Matthew",
   "license": "MIT",
@@ -25,12 +25,14 @@
     "mongoose": "^5.10.8",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
+    "nigerian-phone-number-validator": "^1.0.0",
     "node-fetch": "^2.6.1",
     "nodemailer": "^6.4.13",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.4",
     "swagger-ui-express": "^4.1.4",
     "unirest": "^0.6.0",
+    "validate-phone-number-node-js": "^0.0.1",
     "winston": "^2.4.0",
     "winston-mongodb": "^3.0.0"
   }
