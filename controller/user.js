@@ -1,6 +1,6 @@
 const { User } = require("../models/user");
 const mongoose = require("mongoose");
-const { verifyPhoneNumber, sanitizePhoneNumber } = require("nigerian-phone-number-validator");
+const { verifyPhoneNumber } = require("nigerian-phone-number-validator");
 
 exports.createUser = (req, res) => {
   const bvn = req.body.bvn;
