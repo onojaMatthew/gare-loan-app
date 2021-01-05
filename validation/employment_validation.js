@@ -8,7 +8,7 @@ exports.validateEmployment = [
   
   function(req, res, next) {
 
-    var errors = validationResult(req);
+    const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.status(400).json(errors.array());

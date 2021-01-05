@@ -1,34 +1,25 @@
-const nodemailer = require("nodemailer");
-const sgTransport = require("nodemailer-sendgrid-transport");
+const sgMail = require('@sendgrid/mail');
 
-require("dotenv").config();
+exports.mailer = (data, res) => {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-function sendEmail(data) {
-  var options = {
-    auth: {
-      api_user: process.env.EMAIL_USER,
-      api_key: process.env.EMAIL_PASS
-    }
-  }
-  
-  const transporter = nodemailer.createTransport(sgTransport(options));
-  
-  const email = {
-    from: data.sender,
-    to: data.receiver,
+  const msg = {
+    to: data.to,
+    from: process.env.SENDGRID_SENDER_EMAIL, // Use the email address or domain you verified on sendgrid account
     subject: data.subject,
-    text: 'Hello world',
-    html: data.message
+    text: data.text,
+    html: data.html,
   };
-  
-  transporter.sendMail(email, function(err, info){
-      if (err ){
-        console.log(err);
+  //ES6
+  sgMail
+    .send(msg)
+    .then(() => { 
+      return res.json({ message: "Email sent" });
+    })
+    .catch( error => {
+      console.error(error);
+      if (error.response) {
+        console.error(error.response.body)
       }
-      else {
-        console.log('Message sent: ' + info);
-      }
-  });
+    });
 }
-
-exports.sendEmail = sendEmail;
