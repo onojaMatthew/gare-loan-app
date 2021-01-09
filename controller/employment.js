@@ -13,7 +13,7 @@ exports.createEmploymentData = async (req, res) => {
     employment.officialEmail = req.body.officialEmail;
     employment.previousEmployer = req.body.previousEmployer;
     employment.salaryPayDay = req.body.salaryPayDay;
-    // employment.userId = req.body.userId;
+    employment.userId = req.body.userId;
     employment.department = req.body.department;
     employment.HREmail = req.body.HREmail;
     employment.HRName = req.body.HRName;

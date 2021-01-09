@@ -9,7 +9,6 @@ const adminSchema = new Schema({
   phone: { type: String, minlength: 11, maxlength: 11},
   code: { type: Number, expires: "5m" },
   resetPasswordToken: { type: String, required: false },
-  resetPasswordExpires: { type: Date, required: false },
   role: { type: String, enum: [ "admin" ], default: "admin" }
 }, { timestamps: true });
 

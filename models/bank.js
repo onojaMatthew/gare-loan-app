@@ -35,6 +35,7 @@ const bankSchema = new Schema({
   accountName: { type: String, required: [ true, "What is your account name"]},
   accountType: { type: String, required: [ true, "What is your account type"]},
   code: { type: String, required: [ true, "Your bank code is required"], enum: codeEnum },
+  bvn: { type: Number, unique: true },
 }, { timestamps: true });
 
 const Bank = mongoose.model("Bank", bankSchema);

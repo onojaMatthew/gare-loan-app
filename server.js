@@ -24,7 +24,7 @@ const app = express();
 // Connecting to the database
 db();
 
-// app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.static(path.join(__dirname, '/gare-client/build')));
 
 //============================================================================
 // Setting up middlewares
@@ -53,8 +53,8 @@ require("./middleware/prod")(app);
 // Custom route configuration
 require("./middleware/routes")(app);
 
-app.get('/', (req, res) => {
-  res.json({ message: "Welcome to EXPRESS API" });
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname + "/gare-client/build/index.html"))
 });
 
 //=============================================================================

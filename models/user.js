@@ -16,6 +16,7 @@ const userSchema = new Schema({
     city: { type: String },
     state: { type: String }
   },
+  bvn: { type: Number, required: true },
   how_you_hear_about_us: { type: String },
   email_verified: { type: Boolean, default: false },
   email_verification_token: { type: String },
@@ -25,7 +26,6 @@ const userSchema = new Schema({
   loan: { type: ObjectId, ref: "Loan" },
   existingLoan: { type: ObjectId, ref: "ExistingLoan" },
   attestationId: { type: ObjectId, ref: "Attestation" },
-  bvn: { type: Number, unique: true },
   meansOfIdentification: { type: String, enum: ["international passport", "driver's license", "voter's card", "national identity", "others"]},
   identityNumber: { type: Number, unique: true },
   creditScore: { type: Number },

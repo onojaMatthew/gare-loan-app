@@ -8,7 +8,8 @@ const loanSchema = new Schema({
   purpose: { type: String, required: [ true, "Please tell us what the loan is for"]},
   tenure: { type: String, required: [ true, "Tenure of the loan is required"]},
   userId: { type: ObjectId, ref: "User", required: [ true, "User ID is required" ]},
-  status: { type: Boolean, default: "pending" }
+  status: { type: Boolean, enum: [ "approved", "rejected", "pending" ], default: "pending" },
+  approver: { type: ObjectId, ref: "Admin" }
 }, { timestamps: true });
 
 const Loan = mongoose.model("Loan", loanSchema);

@@ -1,6 +1,6 @@
 const unirest = require("unirest");
 
-exports.sms = (data) => {
+exports.sms = (req, res, data) => {
   const sender = "Estate";
   const type = 0;
   const routing = 4;
@@ -8,5 +8,6 @@ exports.sms = (data) => {
   unirest("GET", `${process.env.SMS_URL}message=${data.message}&to=${data.phone}&sender=${sender}&type=${type}&routing=${routing}&token=${process.env.SMS_TOKEN}`)
     .end(resp => {
       console.log(resp.body);
+      return res.redirect(`http://${req.headers.host}/verified`)
     });
 }

@@ -1,8 +1,12 @@
 const { User } = require("../models/user");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const { verifyPhoneNumber } = require("nigerian-phone-number-validator");
 const { mailer } = require("../services/mailer");
+const { sms } = require("../services/sms");
+const { codeGenerator } = require("../services/code_generator");
+const { reset } = require("./auth");
 
 exports.createUser = async (req, res) => {
   // console.log(result, " the phone validation result")
@@ -10,22 +14,16 @@ exports.createUser = async (req, res) => {
   try {
     const isUserExists = await User.findOne({ email: req.body.email });
     if (isUserExists) return res.status(400).json({ error: `A user with the ${req.body.email} already exists` });
+    const hashedPassword = await bcrypt.hash(req.body.password, 12);
+    if (!hashedPassword) return res.status(400).json({ error: "Could not hash password. Please try again" });
     let user = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
-      password: req.body.password,
-      how_you_hear_about_us: req.body.how_you_hear_about_us
-      // bvn: req.body.bvn,
-      // "address.city": req.body.city,
-      // "address.state": req.body.state,
-      // "address.street": req.body.street,
-      // gender: req.body.gender,
-      // meansOfIdentification: req.body.meansOfIdentification,
-      // identityNumber: req.body.identityNumber,
-      // dateOfBirth: req.body.dateOfBirth,
-      // maritalStatus: req.body.maritalStatus
+      password: hashedPassword,
+      how_you_hear_about_us: req.body.how_you_hear_about_us,
+      bvn: req.body.bvn,
     });
 
     user = await user.save();
@@ -58,13 +56,13 @@ exports.sendToken = async (req, res, email) => {
         <p>Please click on the following link ${link} to activate your email.</p>
       `
     }
-
     return mailer(data, res);
   } catch (error) {
-    
+    return res.status(400).json({ error: "Internal server error"})
   }
 }
 
+// verify email address
 exports.verifyEmail = async (req, res) => {
   const { email_verification_token } = req.body;
 
@@ -80,10 +78,37 @@ exports.verifyEmail = async (req, res) => {
         user.email_verification_token = null;
         user = await user.save();
         if (!user) return res.status(400).json({ error: "Internal server error"});
-  
-        return res.status({ message: "Email successfully verified" });
+        
+        const token = jwt.sign({ _id: user._id, email: user.email }, process.env.SECRET_KEY, { expiresIn: "14days"});
+
+        const { email, firstName, lastName, phone, email_verified, _id } = user;
+        res.cookie("token", token, { expires: new Date(new Date() + 64800000)});
+        return res.header("x-auth-token", token).json({ token, user: { email, firstName, lastName, phone, _id, email_verified }});
       });
     }
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+}
+
+exports.otherPersonalDetails = async (req, res) => {
+
+  try {
+    let user = await User.findById({ _id: req.body.userId });
+    if (!user) return res.status(404).json({ error: `User does not exist` });
+    user.maritalStatus = req.body.maritalStatus;
+    user.gender = req.body.gender;
+    user.dateOfBirth = req.body.dateOfBirth;
+    user.address.city = req.body.city;
+    user.address.street = req.body.street;
+    user.address.state = req.body.state;
+    user.meansOfidentification = req.body.meansOfidentification;
+    user.identityNumber = req.body.identityNumber;
+
+    const updatedUser = await user.save();
+    if (!updatedUser) return res.status(400).json({ error: "Failed to update user information. Please try again" });
+
+    return res.json({ message: "Information updated" });
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }

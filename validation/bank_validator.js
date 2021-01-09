@@ -32,6 +32,9 @@ exports.validateBank = [
   check("code").isIn(["044", "023", "063", "050", "070", "011", "214", "058", "030", "301", "082", "101", "076", "221", "068", "232", "100", "032", "033", "215", "035", "057"])
   .withMessage("Invalid bank code"),
   check("userId").isMongoId().withMessage("Invalid user ID"),
+  check("bvn").exists().withMessage("BVN is required"),
+  check("bvn").isNumeric().withMessage("Invalid BVN. A BVN must be a number"),
+  check("bvn").isLength({ min: 11, max: 11 }).withMessage("BVN must be 11 digits number"),
   function(req, res, next) {
     const errors = validationResult(req);
 

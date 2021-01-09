@@ -107,10 +107,10 @@ exports.signIn = (req, res) => {
           // generate authentication token for the user
           const token = jwt.sign({ _id: user._id, email: user.email }, process.env.SECRET_KEY, { expiresIn: "14days"});
 
-          const isVerified = user.emailVerified
-          const { email, firstName, lastName, phone, _id } = user;
+          // const isVerified = user.emailVerified
+          const { email, firstName, lastName, phone, _id, email_verified } = user;
           res.cookie("token", token, { expires: new Date(new Date() + 64800000)});
-          res.header("x-auth-token", token).json({ token, user: { email, firstName, lastName, phone, _id, isVerified }});
+          res.header("x-auth-token", token).json({ token, user: { email, firstName, lastName, phone, email_verified, _id }});
         });
     })
     .catch(err => {
