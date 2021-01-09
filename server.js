@@ -53,8 +53,8 @@ require("./middleware/prod")(app);
 // Custom route configuration
 require("./middleware/routes")(app);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname + "/gare-client/build/index.html"))
+app.get('/', (req, res) => {
+  res.send({ message: "Express API" })// res.sendFile(path.resolve(__dirname + "/gare-client/build/index.html"))
 });
 
 //=============================================================================

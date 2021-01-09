@@ -4,7 +4,7 @@ import React from "react";
 const Loan = () => {
 
   const handleLoan = () => {
-    const uniqueID = 1, bookedStatus = true;
+    const uniqueID = 3, bookedStatus = true;
     window.location.href = `/gare_bookings/loan?uniqueID=${uniqueID}&bookedStatus=${bookedStatus}`
   }
 

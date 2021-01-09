@@ -98,6 +98,18 @@ exports.bookingUserDetails = (id) => {
       passport: "http://user_passport.png",
       booked: false
     },
+    {
+      uniqueID: 3,
+      firstName: "Lynda",
+      lastName: "Moses",
+      email: "lynda@gmail.com",
+      phone: "09012345678",
+      bvn: 12345678903,
+      state: "Lagos",
+      city: "surulere",
+      passport: "http://user_passport.png",
+      booked: true
+    },
   ]
 
   const userDetails = users.filter(user => user.uniqueID === id);
@@ -133,12 +145,42 @@ exports.getCreditScore = (bvn) => {
       lastName: "Moses",
       email: "lionel@gmail.com",
       phone: "09012345678",
-      bvn: 12345678902,
+      bvn: 12345678903,
       state: "Lagos",
       city: "Lekki",
-      score: 10
+      score: 0
     },
   ];
   const userDetails = users.filter(user => user.bvn === bvn);
   return userDetails;
+}
+
+exports.getBankDetails = async (req, res) => {
+  const { name, amount, accountName, accountType, accountNumber, code, userId } = req.body;
+  
+  try {
+    let account = await Bank.findOne({ name: name, accountName: accountName, accountNumber: accountNumber, owner: userId });
+    if (account) {
+      // make a call to send money to okra to credit bookings bank account
+
+      // make a to bookings app to update the customer's wallet
+
+      // return a json response to the client
+      return res.json({ account: account });
+    }
+
+    // 
+    let newAccount = new Bank({ name, accountName, accountType, accountNumber, code, userId });
+    newAccount = newAccount.save();
+    if (!newAccount) return res.status(400).json({ error: "Failed create bank details. Please try again" });
+    
+    // make a call to send money to okra to credit bookings bank account
+
+    // make a to bookings app to update the customer's wallet
+
+    // return a json response to the client
+    return res.json({ message: "Wallet successfully credit" });
+  } catch (error) {
+    
+  }
 }
