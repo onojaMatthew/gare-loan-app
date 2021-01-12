@@ -16,7 +16,6 @@ const userSchema = new Schema({
     city: { type: String },
     state: { type: String }
   },
-  bvn: { type: Number, required: true },
   how_you_hear_about_us: { type: String },
   email_verified: { type: Boolean, default: false },
   email_verification_token: { type: String },
@@ -29,6 +28,7 @@ const userSchema = new Schema({
   meansOfIdentification: { type: String, enum: ["international passport", "driver's license", "voter's card", "national identity", "others"]},
   identityNumber: { type: Number, unique: true },
   creditScore: { type: Number },
+  isBooking: { type: Boolean, enum: [ true, false ], default: false },
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

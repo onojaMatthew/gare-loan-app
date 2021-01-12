@@ -23,14 +23,13 @@ exports.bookingsCall = async (req, res) => {
 
     // check if the user already exists in gare finance
     let user =  await User.findOne({ email: userDetails[0].email });
-    console.log(user, " the user user from db")
 
     if (user) {
       const userId = { user_id: user._id}
       if (!user.bvn) return res.status(400).json({ error: "User does not have BVN" });
       // Make a call to Credit Registry to get credit score of the user
       const userAccountDetails = exports.getCreditScore(user.bvn);
-      console.log(userAccountDetails)
+
       const { score } = userAccountDetails[0];
       // Redirect to the client app to enter bank details
       if (score >= 60) return res.json({ score: score, userId: userId });
@@ -45,6 +44,7 @@ exports.bookingsCall = async (req, res) => {
         phoneNumber: userDetails[0].phone,
         password: userDetails[0].firstName + userDetails[0].lastName,
         bvn: userDetails[0].bvn,
+        isBooking: true,
       });
 
       newUser = await newUser.save();

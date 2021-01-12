@@ -23,7 +23,6 @@ exports.createUser = async (req, res) => {
       phoneNumber: req.body.phoneNumber,
       password: hashedPassword,
       how_you_hear_about_us: req.body.how_you_hear_about_us,
-      bvn: req.body.bvn,
     });
 
     user = await user.save();
